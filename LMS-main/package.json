@@ -1,0 +1,25 @@
+{
+  "name": "lms-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learning Management System Express API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "check": "node --check server.js && node --check authHelper/auth.js && node --check controllers/authController.js && node --check controllers/courseController.js && node --check controllers/facultyController.js && node --check controllers/studentController.js && node --check middleware/allowRole.js && node --check middleware/checkUpdates.js && node --check middleware/ensureSelfOrAdmin.js && node --check middleware/isUniqueCourse.js && node --check middleware/isUniqueFaculty.js && node --check middleware/isUniqueStudent.js && node --check middleware/verifyToken.js && node --check model/course.js && node --check model/faculty.js && node --check model/students.js && node --check routes/authRoute.js && node --check routes/courseRoute.js && node --check routes/facultyRoute.js && node --check routes/studentRoute.js && node --check scripts/createAdmin.js",
+    "create-admin": "node scripts/createAdmin.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
