@@ -1,14 +1,9 @@
+
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
-
 const axiosInstance = axios.create({
-  baseURL,
-  timeout: 15000,
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 axiosInstance.interceptors.response.use(
@@ -28,18 +23,18 @@ axiosInstance.interceptors.response.use(
     const responseData = error.response?.data;
 
     let message = 'An unexpected error occurred. Please try again.';
+
     if (!error.response) {
-      message =
-        'Unable to reach the LMS backend server. Ensure the backend is running on port 3000.';
+      message = 'Unable to reach the LMS backend server. Please check your connection.';
     } else if (typeof responseData === 'string' && responseData.trim()) {
       message = responseData;
     } else if (responseData?.message) {
       message = responseData.message;
     } else if (responseData && typeof responseData === 'object') {
-      // Some backend catch blocks use non-standard keys like 'message from login'
       const msgKey = Object.keys(responseData).find((k) =>
         k.toLowerCase().includes('message')
       );
+
       if (msgKey && typeof responseData[msgKey] === 'string') {
         message = responseData[msgKey];
       }

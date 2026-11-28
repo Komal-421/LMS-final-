@@ -15,18 +15,16 @@ const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-app.use(cors({
-  origin(origin, callback) {
-    // Allow non-browser clients (curl/Postman)
-    // and configured frontend origins.
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
+const cors = require('cors');
 
-    return callback(new Error('Origin is not allowed by CORS'));
-  },
-  credentials: true
-}));
+const corsOptions = {
+  origin: 'https://lms-frontend-final.onrender.com',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
 app.disable('x-powered-by');
 app.use(cookieParser());
